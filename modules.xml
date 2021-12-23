@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/GuideView.iml" filepath="$PROJECT_DIR$/.idea/GuideView.iml" group="GuideView" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/easily_tech_guideview/easily_tech_guideview.iml" filepath="$PROJECT_DIR$/.idea/modules/easily_tech_guideview/easily_tech_guideview.iml" group="GuideView/easily_tech_guideview" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entry/entry.iml" filepath="$PROJECT_DIR$/.idea/modules/entry/entry.iml" group="GuideView/entry" />
+    </modules>
+  </component>
+</project>
