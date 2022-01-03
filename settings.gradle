@@ -1,1 +1,1 @@
-include ':app', ':lib'
+include ':entry', ':easily_tech_guideview_lib', ':app'

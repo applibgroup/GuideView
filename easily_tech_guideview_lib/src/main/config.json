@@ -1,0 +1,25 @@
+{
+  "app": {
+    "bundleName": "com.example.guideview",
+    "vendor": "example",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {
+  },
+  "module": {
+    "package": "com.example.easily_tech_guideview_lib",
+    "deviceType": [
+      "phone",
+      "tablet",
+      "tv"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "easily_tech_guideview_lib",
+      "moduleType": "har"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:ohos="http://schemas.android.com/apk/res/android"
+    ohos:id="@+id/fl_container"
+    ohos:layout_width="match_parent"
+    ohos:layout_height="match_parent"
+    ohos:orientation="vertical" />
