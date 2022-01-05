@@ -216,7 +216,7 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         isShowing = true;
     }
 
-    private void hide() {
+    public void hide() {
         this.removeAllComponents();
         if (getComponentParent() != null && getComponentParent() instanceof ComponentParent) {
             getComponentParent().removeComponent(this);

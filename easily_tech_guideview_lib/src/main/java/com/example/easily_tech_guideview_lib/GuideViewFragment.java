@@ -10,10 +10,6 @@ import ohos.agp.utils.Color;
 import ohos.agp.window.dialog.CommonDialog;
 import ohos.agp.window.service.Window;
 import ohos.app.Context;
-import ohos.bundle.BundleInfo;
-import ohos.utils.PacMap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,37 +23,27 @@ public class GuideViewFragment extends CommonDialog {
     private GuideViewBundle currentBundle;
     private GuideView currentGuideView;
     private boolean isShowing;
+    private Component layout;
 
     public GuideViewFragment(Context context) {
         super(context);
         this.context = context;
+        layout = LayoutScatter.getInstance(context).
+                parse(ResourceTable.Layout_layout_guide_container, null, false);
+
     }
 
-    //@Override
-    public void onCreate(@Nullable BundleInfo savedInstanceState) {
+    @Override
+    protected void onCreate() {
         super.onCreate();
-        setTitleSubText("Set some title");
-    }
-
-    @Nullable
-    //@Override
-    public Component onCreateView(@NotNull LayoutScatter scatter,
-                                  @Nullable ComponentContainer container,
-                                  @Nullable PacMap savedInstanceState) {
-//        flContainer = (StackLayout) scatter;
-        return null;
-    }
-
-    //@Override
-    public void onStart() {
-        super.onCreate();
-        CommonDialog commonDialog = new CommonDialog(currentGuideView.getContext());
-        commonDialog.setTitleText("CommonDialog");
-        Window window = commonDialog.getWindow();
+        setTitleText("CommonDialog");
+        this.setContentCustomComponent(layout);
+        Window window = getWindow();
         if (window == null) {
             return;
         }
-        window.setWindowLayout(ComponentContainer.LayoutConfig.MATCH_PARENT, ComponentContainer.LayoutConfig.MATCH_PARENT);
+        window.setWindowLayout(ComponentContainer.LayoutConfig.MATCH_PARENT,
+                ComponentContainer.LayoutConfig.MATCH_PARENT);
         window.setBackgroundColor(new RgbColor(Color.TRANSPARENT.getValue()));
         if (!isShowing) {
             isShowing = true;
@@ -73,7 +59,7 @@ public class GuideViewFragment extends CommonDialog {
     }
 
     public void onNext() {
-        show();
+        showGuideView();
     }
 
     public boolean hasNext() {
@@ -81,7 +67,10 @@ public class GuideViewFragment extends CommonDialog {
     }
 
     private void showGuideView() {
+        // remove the current guideView before showing next one
         if (currentGuideView != null && currentGuideView.isShowing) {
+            // set the container background as the mask color,when the next guideView show,it will reset to transparent
+            // in order to keep reduce the blinking in the interval
             ShapeElement shapeElement = new ShapeElement();
             if (currentBundle == null) {
                 shapeElement.setRgbColor(new RgbColor(TRANSPARENT.getValue()));
@@ -89,9 +78,9 @@ public class GuideViewFragment extends CommonDialog {
                 shapeElement.setRgbColor(RgbColor.fromArgbInt(currentBundle.getMaskColor()));
             }
             flContainer.setBackground(shapeElement);
+            currentGuideView.hide();
         }
-        currentGuideView.setVisibility(2);
-
+        // loop to get the available guideView bundle data
         do {
             if (guideViewBundles == null || guideViewBundles.isEmpty()) {
                 currentBundle = null;
@@ -101,16 +90,14 @@ public class GuideViewFragment extends CommonDialog {
         }
         while (currentBundle != null && !currentBundle.condition());
         if (currentBundle == null) {
-            //dismiss();
+            hide();
             return;
         }
         GuideView guideView = new GuideView((currentGuideView.getContext()), currentBundle);
-        guideView.setTargetViewClickListener(new GuideView.TargetViewClickListener() {
-            @Override
-            public void onGuideViewClicked() {
-                if (currentBundle != null && currentBundle.isDismissOnTouchInTargetView()) {
-                    onNext();
-                }
+        wrapClickListener(guideView);
+        guideView.setTargetViewClickListener(() -> {
+            if (currentBundle != null && currentBundle.isDismissOnTouchInTargetView()) {
+                onNext();
             }
         });
         flContainer.addComponent(guideView);
@@ -122,26 +109,22 @@ public class GuideViewFragment extends CommonDialog {
         if (currentBundle == null || !currentBundle.isDismissOnClicked()) {
             return;
         }
-        guideView.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                onNext();
-            }
-        });
+        guideView.setClickedListener(component -> onNext());
     }
-//
-//    @Override
-//    public void dismiss() {
-//        if (getButtonComponent().getContext() instanceof Ability && !((Ability) getButtonComponent().getContext()).isTerminating() && get != null && getDialog) {
-//            if (flContainer != null) {
-//                flContainer.removeAllComponents();
-//                currentBundle = null;
-//                currentGuideView = null;
-//            }
-//            isShowing = false;
-//            super.onWindowSelectionUpdated(false);
-//        }
-//    }
+
+    @Override
+    public void hide() {
+        if (getButtonComponent().getContext() instanceof CommonDialog
+                && ((CommonDialog) getButtonComponent().getContext()).isShowing()) {
+            if (flContainer != null) {
+                flContainer.removeAllComponents();
+                currentBundle = null;
+                currentGuideView = null;
+            }
+            isShowing = false;
+            super.onWindowSelectionUpdated(false);
+        }
+    }
 
     public static class Builder {
         private List<GuideViewBundle> guideViewBundles = new ArrayList<>();
