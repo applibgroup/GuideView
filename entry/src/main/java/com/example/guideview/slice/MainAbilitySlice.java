@@ -1,9 +1,13 @@
 package com.example.guideview.slice;
 
-import com.example.guideview.ResourceTable;
+
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
+import com.example.guideview.ResourceTable;
 
+/**
+ * Slice for Main Ability.
+ */
 public class MainAbilitySlice extends AbilitySlice {
     @Override
     public void onStart(Intent intent) {

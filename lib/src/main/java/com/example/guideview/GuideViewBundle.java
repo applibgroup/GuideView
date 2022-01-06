@@ -1,31 +1,29 @@
-package com.example.easily_tech_guideview_lib;
+package com.example.guideview;
 
 import ohos.agp.components.Component;
 import ohos.agp.components.StackLayout;
 import org.jetbrains.annotations.NotNull;
 
-import static com.example.easily_tech_guideview_lib.GuideViewBundle.TransparentOutline.TYPE_OVAL;
-
 public class GuideViewBundle {
 
     /**
-     * direction between the hintView and targetView
+     * direction between the hintView and targetView.
      */
     public interface Direction {
         /**
-         * the hintView will align left to the targetView,which top align with it meanwhile
+         * the hintView will align left to the targetView,which top align with it meanwhile.
          */
         int LEFT = 0x0001;
         /**
-         * the hintView will align right to the targetView,which top align with it meanwhile
+         * the hintView will align right to the targetView,which top align with it meanwhile.
          */
         int RIGHT = 0x0002;
         /**
-         * the hintView will align top to the targetView,which left align with it meanwhile
+         * the hintView will align top to the targetView,which left align with it meanwhile.
          */
         int TOP = 0x0003;
         /**
-         * the hintView will align bottom to the targetView,which left align with it meanwhile
+         * the hintView will align bottom to the targetView,which left align with it meanwhile.
          */
         int BOTTOM = 0x0004;
     }
@@ -35,7 +33,7 @@ public class GuideViewBundle {
     }
 
     /**
-     * Transparent focus area outline type
+     * Transparent focus area outline type.
      */
     public interface TransparentOutline {
         int TYPE_OVAL = 0;
@@ -149,7 +147,7 @@ public class GuideViewBundle {
         private boolean isDismissOnClickTargetView = true;
         private boolean isTargetViewClickable;
         private int hintViewDirection;
-        private int outlineType = TYPE_OVAL;
+        private int outlineType = GuideViewBundle.TransparentOutline.TYPE_OVAL;
         private int maskColor = MASK_LAYER_COLOR;
 
         public Builder setTargetView(Component targetView) {

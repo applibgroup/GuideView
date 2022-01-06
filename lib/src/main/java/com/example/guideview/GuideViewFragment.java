@@ -1,4 +1,4 @@
-package com.example.easily_tech_guideview_lib;
+package com.example.guideview;
 
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.Component;
@@ -10,11 +10,15 @@ import ohos.agp.utils.Color;
 import ohos.agp.window.dialog.CommonDialog;
 import ohos.agp.window.service.Window;
 import ohos.app.Context;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static ohos.agp.utils.Color.TRANSPARENT;
+/**
+ * show the guidView using DialogFragment,it has such features:
+ * 1.the guideView can be dismiss,when clicked the back-event key;
+ * 2.control the guideView as a series
+ *
+ * <p>Created by lemon on 2018/4/16.
+ */
 
 public class GuideViewFragment extends CommonDialog {
     private static Context context;
@@ -25,11 +29,15 @@ public class GuideViewFragment extends CommonDialog {
     private boolean isShowing;
     private Component layout;
 
-    public GuideViewFragment(Context context) {
+    /**
+     * Constructor.
+     * @param cxt context instance
+     */
+    public GuideViewFragment(Context cxt) {
         super(context);
-        this.context = context;
-        layout = LayoutScatter.getInstance(context).
-                parse(ResourceTable.Layout_layout_guide_container, null, false);
+        context = cxt;
+        layout = LayoutScatter.getInstance(context)
+                .parse(ResourceTable.Layout_layout_guide_container, null, false);
 
     }
 
@@ -58,10 +66,22 @@ public class GuideViewFragment extends CommonDialog {
         this.guideViewBundles = guideViewBundles;
     }
 
+    /**
+     * when the guideView is clicked (or the item in guideView is clicked for next),this method need to be called
+     * if the GuideView is allowed to dismissOnClicked
+     * (by setting easily.tech.guideview.lib.GuideViewBundle.Builder#setDismissOnClicked(boolean)}),
+     * this method will be called automatically
+     * otherwise,you need to handle it yourself.
+     */
     public void onNext() {
         showGuideView();
     }
 
+    /**
+     * whether there is another guiView to show on next click.
+     *
+     * @return boolean True or False
+     */
     public boolean hasNext() {
         return guideViewBundles != null && !guideViewBundles.isEmpty();
     }
@@ -73,7 +93,7 @@ public class GuideViewFragment extends CommonDialog {
             // in order to keep reduce the blinking in the interval
             ShapeElement shapeElement = new ShapeElement();
             if (currentBundle == null) {
-                shapeElement.setRgbColor(new RgbColor(TRANSPARENT.getValue()));
+                shapeElement.setRgbColor(new RgbColor(ohos.agp.utils.Color.TRANSPARENT.getValue()));
             } else {
                 shapeElement.setRgbColor(RgbColor.fromArgbInt(currentBundle.getMaskColor()));
             }
@@ -87,8 +107,7 @@ public class GuideViewFragment extends CommonDialog {
             } else {
                 currentBundle = guideViewBundles.remove(0);
             }
-        }
-        while (currentBundle != null && !currentBundle.condition());
+        } while (currentBundle != null && !currentBundle.condition());
         if (currentBundle == null) {
             hide();
             return;
@@ -138,7 +157,7 @@ public class GuideViewFragment extends CommonDialog {
             return this;
         }
 
-        public Builder setCancelable(boolean Cancelable) {
+        public Builder setCancelable(boolean cancelable) {
             this.cancelable = cancelable;
             return this;
         }

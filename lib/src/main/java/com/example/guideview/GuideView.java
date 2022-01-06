@@ -1,7 +1,11 @@
-package com.example.easily_tech_guideview_lib;
+package com.example.guideview;
 
 import ohos.aafwk.ability.Ability;
-import ohos.agp.components.*;
+import ohos.agp.components.Component;
+import ohos.agp.components.ComponentContainer;
+import ohos.agp.components.ComponentParent;
+import ohos.agp.components.DependentLayout;
+import ohos.agp.components.StackLayout;
 import ohos.agp.render.Canvas;
 import ohos.agp.render.Canvas.PorterDuffMode;
 import ohos.agp.render.Paint;
@@ -19,9 +23,6 @@ import ohos.media.image.common.PixelFormat;
 import ohos.media.image.common.Size;
 import ohos.multimodalinput.event.TouchEvent;
 
-import static com.example.easily_tech_guideview_lib.GuideViewBundle.Direction.*;
-import static com.example.easily_tech_guideview_lib.GuideViewBundle.TransparentOutline.TYPE_RECT;
-
 
 @SuppressWarnings("ViewConstructor")
 final class GuideView extends DependentLayout implements Component.DrawTask, Component.TouchEventListener {
@@ -38,7 +39,7 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
             }
             return true;
         }
-        return false;//super.(touchEvent);
+        return false;
     }
 
     interface TargetViewClickListener {
@@ -102,18 +103,15 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         canvas.drawColor(Color.TRANSPARENT.getValue(), PorterDuffMode.DST_OUT);
         transparentPaint.setAntiAlias(true);
         if (bundle.isHasTransparentLayer()) {
-            //   int extraHeight = BuildConfig.VERSION_CODE < BuildConfig.VERSION_NAME() ? Utils.getStatusBarHeight(getContext()): 0 ;
             float left = targetViewLocation[0] - bundle.getTransparentSpaceLeft();
             float top = targetViewLocation[1] - bundle.getTransparentSpaceTop();
             float right = targetViewLocation[0] + targetViewWidth + bundle.getTransparentSpaceRight();
             float bottom = targetViewLocation[1] + targetViewHeight + bundle.getTransparentSpaceBottom();
             RectFloat rectFloat = new RectFloat(left, top, right, bottom);
-            switch (bundle.getOutlineType()) {
-                case TYPE_RECT:
-                    backGround.drawRect(rectFloat, transparentPaint);
-                    break;
-                default:
-                    backGround.drawOval(rectFloat, transparentPaint);
+            if (bundle.getOutlineType() == GuideViewBundle.TransparentOutline.TYPE_RECT) {
+                backGround.drawRect(rectFloat, transparentPaint);
+            } else {
+                backGround.drawOval(rectFloat, transparentPaint);
             }
         }
         canvas.drawPoint(0, 0, backgroundPaint);
@@ -123,55 +121,61 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         if (bundle == null || bundle.getTargetView() == null) {
             return false;
         }
-        int yAxis = getComponentPosition().getPivotYCoordinate();
-        int xAxis = getComponentPosition().getPivotXCoordinate();
+        int yaxis = getComponentPosition().getPivotYCoordinate();
+        int xaxis = getComponentPosition().getPivotXCoordinate();
         Component targetView = bundle.getTargetView();
         float[] location = targetView.getContentPosition();
         int left = (int) location[0];
         int top = (int) location[1];
         int right = left + targetView.getWidth();
         int bottom = top + targetView.getHeight();
-        return yAxis >= top && yAxis <= bottom && xAxis >= left && xAxis <= right;
+        return yaxis >= top && yaxis <= bottom && xaxis >= left && xaxis <= right;
     }
 
     private void addHintView() {
         if (hasAddHintView || bundle.getHintView() == null) {
             return;
         }
-        StackLayout.LayoutConfig config = bundle.getHintViewParams() == null ?
-                new StackLayout.LayoutConfig(ComponentContainer.LayoutConfig.MATCH_CONTENT,
-                        ComponentContainer.LayoutConfig.MATCH_CONTENT) : bundle.getHintViewParams();
-        int left, top, right, bottom;
-        left = top = right = bottom = 0;
 
-        int gravity = LayoutAlignment.TOP | LayoutAlignment.START;
+        int left = 0;
+        int top = 0;
+        int right = 0;
+        int bottom = 0;
 
-        int viewHeight = getHeight();
-        //  int extraHeight = BuildConfig.VERSION_CODE < BuildConfig.VERSION_NAME ? Utils.getStatusBarHeight(getContext()): 0;
         switch (bundle.getHintViewDirection()) {
-            case LEFT:
+            case GuideViewBundle.Direction.LEFT:
                 setGravity(LayoutAlignment.END);
                 top = targetViewLocation[1] + bundle.getHintViewMarginTop();
-                right = screenWidth - targetViewLocation[0] + bundle.getHintViewMarginRight() + bundle.getTransparentSpaceLeft();
+                right = screenWidth - targetViewLocation[0] + bundle.getHintViewMarginRight()
+                        + bundle.getTransparentSpaceLeft();
                 break;
-            case RIGHT:
+            case GuideViewBundle.Direction.RIGHT:
                 setGravity(LayoutAlignment.START);
                 top = targetViewLocation[1] + bundle.getHintViewMarginTop();
-                left = targetViewLocation[0] + targetViewWidth + bundle.getHintViewMarginLeft() + bundle.getTransparentSpaceRight();
+                left = targetViewLocation[0] + targetViewWidth + bundle.getHintViewMarginLeft()
+                        + bundle.getTransparentSpaceRight();
                 break;
-            case TOP:
+            case GuideViewBundle.Direction.TOP:
                 setGravity(LayoutAlignment.BOTTOM);
-                bottom = viewHeight - targetViewLocation[1] + bundle.getHintViewMarginBottom() + bundle.getTransparentSpaceTop();
+                bottom = getHeight() - targetViewLocation[1] + bundle.getHintViewMarginBottom()
+                        + bundle.getTransparentSpaceTop();
                 left = targetViewLocation[0] + bundle.getHintViewMarginLeft();
                 break;
-            case BOTTOM:
+            case GuideViewBundle.Direction.BOTTOM:
+            default:
                 setGravity(LayoutAlignment.TOP);
-                top = targetViewLocation[1] + targetViewHeight + bundle.getHintViewMarginTop() + bundle.getTransparentSpaceBottom();
+                top = targetViewLocation[1] + targetViewHeight + bundle.getHintViewMarginTop()
+                        + bundle.getTransparentSpaceBottom();
                 left = targetViewLocation[0] + bundle.getHintViewMarginLeft();
                 break;
+
         }
-        setGravity(gravity);
+        setGravity(LayoutAlignment.TOP | LayoutAlignment.START);
+        StackLayout.LayoutConfig config = bundle.getHintViewParams() == null
+                ? new StackLayout.LayoutConfig(ComponentContainer.LayoutConfig.MATCH_CONTENT,
+                ComponentContainer.LayoutConfig.MATCH_CONTENT) : bundle.getHintViewParams();
         config.setMargins(left, top, right, bottom);
+
         if (bundle.getHintView().getComponentParent() != null) {
             bundle.getHintView().setLayoutConfig(config);
         } else {
@@ -183,7 +187,7 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
     private boolean getTargetViewPosition() {
         Component targetView = bundle.getTargetView();
         if (targetView.getWidth() > 0 && targetView.getHeight() > 0) {
-            targetView.getLocationOnScreen();
+            targetViewLocation = targetView.getLocationOnScreen();
             targetViewWidth = targetView.getWidth();
             targetViewHeight = targetView.getHeight();
             return targetViewLocation[0] >= 0 && targetViewLocation[1] > 0;

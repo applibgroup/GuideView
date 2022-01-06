@@ -1,4 +1,5 @@
 package com.example.guideview;
+
 /*
  * Copyright (C) 2020-21 Application Library Engineering Group
  *
@@ -15,13 +16,13 @@ package com.example.guideview;
  * limitations under the License.
  */
 
-import com.example.guideview.slice.MainAbilitySlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.content.Intent;
-
+import com.example.guideview.slice.MainAbilitySlice;
 /**
  * Launching Ability.
  */
+
 public class MainAbility extends Ability {
     @Override
     public void onStart(Intent intent) {

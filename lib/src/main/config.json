@@ -10,7 +10,7 @@
   "deviceConfig": {
   },
   "module": {
-    "package": "com.example.easily_tech_guideview_lib",
+    "package": "com.example.guideview",
     "deviceType": [
       "phone",
       "tablet",
@@ -18,7 +18,7 @@
     ],
     "distro": {
       "deliveryWithInstall": true,
-      "moduleName": "easily_tech_guideview_lib",
+      "moduleName": "lib",
       "moduleType": "har"
     }
   }

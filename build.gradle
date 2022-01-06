@@ -43,7 +43,7 @@ allprojects {
         configFile file("config/checkstyle.xml")
 
         source 'entry/src/main/java'
-        source 'easily_tech_guideview_lib/src/main/java'
+        source 'guideview/src/main/java'
         include '**/*.java'
 
         // empty classpath
@@ -60,8 +60,8 @@ sonarqube {
         property "sonar.projectKey", "applibgroup_GuideView"
         property "sonar.organization", "applibgroup"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.sources", "entry,easily_tech_guideview_lib"
-        property "sonar.java.binaries", "entry/build,easily_tech_guideview_lib/build"
+        property "sonar.sources", "entry,guideview"
+        property "sonar.java.binaries", "entry/build,guideview/build"
         property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/checkstyle.xml"
     }
 }
