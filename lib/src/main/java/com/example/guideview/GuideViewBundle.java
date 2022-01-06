@@ -127,7 +127,7 @@ public class GuideViewBundle {
     }
 
     public static class Builder {
-        private static int MASK_LAYER_COLOR = 0xd9000000;
+        private static final int MASK_LAYER_COLOR = 0xd9000000;
         private Component targetView;
         private Component hintView;
         private int transparentSpaceLeft;
@@ -181,7 +181,7 @@ public class GuideViewBundle {
             return this;
         }
 
-        public Builder setHasTransparentlayer(boolean hasTransparentLayer) {
+        public Builder setHasTransparentLayer(boolean hasTransparentLayer) {
             this.hasTransparentLayer = hasTransparentLayer;
             return this;
         }
@@ -211,7 +211,7 @@ public class GuideViewBundle {
             return this;
         }
 
-        public Builder setDismissOnTouchInTargeView(boolean dismissOnTouchInTargetView) {
+        public Builder setDismissOnTouchInTargetView(boolean dismissOnTouchInTargetView) {
             isDismissOnClickTargetView = dismissOnTouchInTargetView;
             return this;
         }
