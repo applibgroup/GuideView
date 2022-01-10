@@ -4,30 +4,38 @@ import ohos.agp.components.Component;
 import ohos.agp.components.StackLayout;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * The configuration item class of the guide view,
+ * each page of the guide view corresponds to a configuration item.
+ */
 public class GuideViewBundle {
 
     /**
      * direction between the hintView and targetView.
      */
-    public interface Direction {
+    public static final class Direction {
         /**
          * the hintView will align left to the targetView,which top align with it meanwhile.
          */
-        int LEFT = 0x0001;
+        public static final int LEFT = 0x0001;
         /**
          * the hintView will align right to the targetView,which top align with it meanwhile.
          */
-        int RIGHT = 0x0002;
+        public static final int RIGHT = 0x0002;
         /**
          * the hintView will align top to the targetView,which left align with it meanwhile.
          */
-        int TOP = 0x0003;
+        public static final int TOP = 0x0003;
         /**
          * the hintView will align bottom to the targetView,which left align with it meanwhile.
          */
-        int BOTTOM = 0x0004;
+        public static final int BOTTOM = 0x0004;
     }
 
+    /**
+     * Interface to support setting the monitoring of GuideView
+     * (that is, the guide view of each page) closed.
+     */
     public interface GuideViewHideListener {
         void onGuideViewHide();
     }
@@ -35,9 +43,9 @@ public class GuideViewBundle {
     /**
      * Transparent focus area outline type.
      */
-    public interface TransparentOutline {
-        int TYPE_OVAL = 0;
-        int TYPE_RECT = 1;
+    public static final class TransparentOutline {
+        public static final int TYPE_OVAL = 0;
+        public static final int TYPE_RECT = 1;
     }
 
     private GuideViewBundle.Builder config;
@@ -126,6 +134,10 @@ public class GuideViewBundle {
         return config.guideViewHideListener;
     }
 
+    /**
+     * Builder class to  construct GuideView object.
+     */
+
     public static class Builder {
         private static final int MASK_LAYER_COLOR = 0xd9000000;
         // the guide hint view will align to
@@ -167,6 +179,15 @@ public class GuideViewBundle {
             return this;
         }
 
+        /**
+         * Method to set the alignment of the targetView.
+         *
+         * @param left left alignment
+         * @param top top alignment
+         * @param right right alignment
+         * @param bottom bottom alignment
+         * @return Builder object
+         */
         public Builder setTransparentSpace(int left, int top, int right, int bottom) {
             this.transparentSpaceLeft = left;
             this.transparentSpaceTop = top;
@@ -175,6 +196,15 @@ public class GuideViewBundle {
             return this;
         }
 
+        /**
+         * Method to set transparent space around the HintView.
+         *
+         * @param left left space
+         * @param top top space
+         * @param right right space
+         * @param bottom bottom space
+         * @return Builder object
+         */
         public Builder setHintViewMargin(int left, int top, int right, int bottom) {
             this.hintViewMarginLeft = left;
             this.hintViewMarginTop = top;
