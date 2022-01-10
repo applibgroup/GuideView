@@ -28,7 +28,7 @@ import ohos.multimodalinput.event.TouchEvent;
 final class GuideView extends DependentLayout implements Component.DrawTask, Component.TouchEventListener {
     @Override
     public boolean onTouchEvent(Component component, TouchEvent touchEvent) {
-        if (bundle.isTargetViewClickAble() && isTouchOnTargetView(touchEvent)) {
+        if (bundle.isTargetViewClickAble() && isTouchOnTargetView()) {
             if (getContext() instanceof Ability) {
                 ((Ability) getContext()).onEventDispatch();
             }
@@ -66,7 +66,7 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         screenHeight = Component.EstimateSpec.getSize(getEstimatedHeight());
         backgroundPaint = new Paint();
         transparentPaint = new Paint();
-        backgroundPaint.setColor(new Color(bundle.getMaskColor()));
+        backgroundPaint.setColor(new Color(this.bundle.getMaskColor()));
 
         EventRunner runner = EventRunner.getMainEventRunner();
         mHandler = new EventHandler(runner) {
@@ -117,7 +117,7 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         canvas.drawPoint(0, 0, backgroundPaint);
     }
 
-    private boolean isTouchOnTargetView(TouchEvent event) {
+    private boolean isTouchOnTargetView() {
         if (bundle == null || bundle.getTargetView() == null) {
             return false;
         }

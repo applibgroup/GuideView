@@ -128,20 +128,27 @@ public class GuideViewBundle {
 
     public static class Builder {
         private static final int MASK_LAYER_COLOR = 0xd9000000;
+        // the guide hint view will align to
         private Component targetView;
+        // the assist guidView
         private Component hintView;
+        // default,the transparent area is fix the size of the targetView,if you need more space ,set this
         private int transparentSpaceLeft;
         private int transparentSpaceRight;
         private int transparentSpaceTop;
         private int transparentSpaceBottom;
+        // default,the hint view is align the targetView based on the Direction
         private int hintViewMarginLeft;
         private int hintViewMarginRight;
         private int hintViewMarginTop;
         private int hintViewMarginBottom;
-
+        // default,the hint view is align the targetView based on the Direction
         private StackLayout.LayoutConfig hintViewParams;
         private boolean hasTransparentLayer = true;
+        // whether click the whole screen can dismissed the guideView.
+        // If false,you need to handle the click and dismiss event yourself
         private boolean isDismissOnClicked = true;
+        // set a condition,whether the added GuideViewBundle can be shown,default is true
         private boolean condition = true;
         private GuideViewHideListener guideViewHideListener;
         private boolean isDismissOnClickTargetView = true;

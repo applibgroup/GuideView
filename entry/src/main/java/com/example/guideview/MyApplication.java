@@ -22,5 +22,8 @@ import ohos.aafwk.ability.AbilityPackage;
  * Entry point to Application.
  */
 public class MyApplication extends AbilityPackage {
-    //Do nothing
+    @Override
+    public void onInitialize() {
+        super.onInitialize();
+    }
 }
