@@ -56,7 +56,7 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         return false;
     }
 
-    private interface TargetViewClickListener {
+    interface TargetViewClickListener {
         void onGuideViewClicked();
     }
 
