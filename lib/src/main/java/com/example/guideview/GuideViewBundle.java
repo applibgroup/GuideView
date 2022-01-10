@@ -137,7 +137,6 @@ public class GuideViewBundle {
     /**
      * Builder class to  construct GuideView object.
      */
-
     public static class Builder {
         private static final int MASK_LAYER_COLOR = 0xd9000000;
         // the guide hint view will align to

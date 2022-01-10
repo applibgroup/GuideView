@@ -1,11 +1,7 @@
 package com.example.guideview;
 
 import ohos.aafwk.ability.Ability;
-import ohos.agp.components.Component;
-import ohos.agp.components.ComponentContainer;
-import ohos.agp.components.ComponentParent;
-import ohos.agp.components.DependentLayout;
-import ohos.agp.components.StackLayout;
+import ohos.agp.components.*;
 import ohos.agp.render.Canvas;
 import ohos.agp.render.Canvas.PorterDuffMode;
 import ohos.agp.render.Paint;
@@ -46,10 +42,9 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
             if (getContext() instanceof Ability) {
                 ((Ability) getContext()).onEventDispatch();
             }
-            if (touchEvent.getAction() == TouchEvent.PRIMARY_POINT_UP) {
-                if (targetViewClickListener != null) {
-                    targetViewClickListener.onGuideViewClicked();
-                }
+            if (touchEvent.getAction() == TouchEvent.PRIMARY_POINT_UP
+                    && null != targetViewClickListener) {
+                targetViewClickListener.onGuideViewClicked();
             }
             return true;
         }

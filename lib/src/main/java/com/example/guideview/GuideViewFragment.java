@@ -12,6 +12,7 @@ import ohos.agp.window.service.Window;
 import ohos.app.Context;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * show the guidView using DialogFragment,it has such features:
  * 1.the guideView can be dismiss,when clicked the back-event key;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 
 public class GuideViewFragment extends CommonDialog {
-    private static Context context;
+    private Context context;
     private List<GuideViewBundle> guideViewBundles = new ArrayList<>();
     private StackLayout flContainer;
     private GuideViewBundle currentBundle;
@@ -31,10 +32,11 @@ public class GuideViewFragment extends CommonDialog {
 
     /**
      * Constructor.
+     *
      * @param cxt context instance
      */
     public GuideViewFragment(Context cxt) {
-        super(context);
+        super(cxt);
         context = cxt;
         layout = LayoutScatter.getInstance(context)
                 .parse(ResourceTable.Layout_layout_guide_container, null, false);
@@ -112,7 +114,7 @@ public class GuideViewFragment extends CommonDialog {
             hide();
             return;
         }
-        if(null!=currentGuideView) {
+        if (null != currentGuideView) {
             GuideView guideView = new GuideView((currentGuideView.getContext()), currentBundle);
             wrapClickListener(guideView);
             guideView.setTargetViewClickListener(() -> {
@@ -147,28 +149,4 @@ public class GuideViewFragment extends CommonDialog {
         }
     }
 
-    public static class Builder {
-        private List<GuideViewBundle> guideViewBundles = new ArrayList<>();
-        private boolean cancelable;
-
-        public Builder addGuideViewBundle(GuideViewBundle bundle) {
-            if (bundle == null) {
-                return this;
-            }
-            guideViewBundles.add(bundle);
-            return this;
-        }
-
-        public Builder setCancelable(boolean cancelable) {
-            this.cancelable = cancelable;
-            return this;
-        }
-
-        public GuideViewFragment build() {
-            GuideViewFragment fragment = new GuideViewFragment(context);
-            fragment.setGuideViewBundles(guideViewBundles);
-            fragment.siteRemovable(cancelable);
-            return fragment;
-        }
-    }
 }
