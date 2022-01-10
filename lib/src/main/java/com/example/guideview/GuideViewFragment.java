@@ -112,16 +112,18 @@ public class GuideViewFragment extends CommonDialog {
             hide();
             return;
         }
-        GuideView guideView = new GuideView((currentGuideView.getContext()), currentBundle);
-        wrapClickListener(guideView);
-        guideView.setTargetViewClickListener(() -> {
-            if (currentBundle != null && currentBundle.isDismissOnTouchInTargetView()) {
-                onNext();
-            }
-        });
-        flContainer.addComponent(guideView);
-        guideView.show();
-        currentGuideView = guideView;
+        if(null!=currentGuideView) {
+            GuideView guideView = new GuideView((currentGuideView.getContext()), currentBundle);
+            wrapClickListener(guideView);
+            guideView.setTargetViewClickListener(() -> {
+                if (currentBundle != null && currentBundle.isDismissOnTouchInTargetView()) {
+                    onNext();
+                }
+            });
+            flContainer.addComponent(guideView);
+            guideView.show();
+            currentGuideView = guideView;
+        }
     }
 
     private void wrapClickListener(Component guideView) {

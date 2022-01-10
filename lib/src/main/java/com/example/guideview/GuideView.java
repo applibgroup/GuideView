@@ -26,6 +26,20 @@ import ohos.multimodalinput.event.TouchEvent;
 
 @SuppressWarnings("ViewConstructor")
 final class GuideView extends DependentLayout implements Component.DrawTask, Component.TouchEventListener {
+
+    private boolean hasAddHintView = false;
+    public boolean isShowing = false;
+    private int[] targetViewLocation = new int[2];
+    private int targetViewWidth;
+    private int targetViewHeight;
+    private int screenWidth;
+    private int screenHeight;
+    private Paint backgroundPaint;
+    private Paint transparentPaint;
+    private GuideViewBundle bundle;
+    private TargetViewClickListener targetViewClickListener;
+    private EventHandler mHandler;
+
     @Override
     public boolean onTouchEvent(Component component, TouchEvent touchEvent) {
         if (bundle.isTargetViewClickAble() && isTouchOnTargetView()) {
@@ -42,24 +56,12 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
         return false;
     }
 
-    interface TargetViewClickListener {
+    private interface TargetViewClickListener {
         void onGuideViewClicked();
     }
 
-    private boolean hasAddHintView = false;
-    public boolean isShowing = false;
-    private int[] targetViewLocation = new int[2];
-    private int targetViewWidth;
-    private int targetViewHeight;
-    private int screenWidth;
-    private int screenHeight;
-    private Paint backgroundPaint;
-    private Paint transparentPaint;
-    private GuideViewBundle bundle;
-    private TargetViewClickListener targetViewClickListener;
-    private EventHandler mHandler;
 
-    GuideView(Context context, GuideViewBundle bundle) {
+    public GuideView(Context context, GuideViewBundle bundle) {
         super(context);
         this.bundle = bundle;
         screenWidth = Component.EstimateSpec.getSize(getEstimatedWidth());
