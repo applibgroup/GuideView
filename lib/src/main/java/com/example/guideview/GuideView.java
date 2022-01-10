@@ -1,7 +1,11 @@
 package com.example.guideview;
 
 import ohos.aafwk.ability.Ability;
-import ohos.agp.components.*;
+import ohos.agp.components.StackLayout;
+import ohos.agp.components.Component;
+import ohos.agp.components.ComponentContainer;
+import ohos.agp.components.ComponentParent;
+import ohos.agp.components.DependentLayout;
 import ohos.agp.render.Canvas;
 import ohos.agp.render.Canvas.PorterDuffMode;
 import ohos.agp.render.Paint;

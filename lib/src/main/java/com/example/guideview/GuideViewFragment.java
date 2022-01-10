@@ -61,6 +61,11 @@ public class GuideViewFragment extends CommonDialog {
         }
     }
 
+    /**
+     * Sets List of GuideViewBundle.
+     *
+     * @param guideViewBundles returns list after assigning values
+     */
     public void setGuideViewBundles(List<GuideViewBundle> guideViewBundles) {
         if (guideViewBundles == null || guideViewBundles.isEmpty()) {
             return;
@@ -90,18 +95,7 @@ public class GuideViewFragment extends CommonDialog {
 
     private void showGuideView() {
         // remove the current guideView before showing next one
-        if (currentGuideView != null && currentGuideView.isShowing) {
-            // set the container background as the mask color,when the next guideView show,it will reset to transparent
-            // in order to keep reduce the blinking in the interval
-            ShapeElement shapeElement = new ShapeElement();
-            if (currentBundle == null) {
-                shapeElement.setRgbColor(new RgbColor(ohos.agp.utils.Color.TRANSPARENT.getValue()));
-            } else {
-                shapeElement.setRgbColor(RgbColor.fromArgbInt(currentBundle.getMaskColor()));
-            }
-            flContainer.setBackground(shapeElement);
-            currentGuideView.hide();
-        }
+        removeCurrentGuideView();
         // loop to get the available guideView bundle data
         do {
             if (guideViewBundles == null || guideViewBundles.isEmpty()) {
@@ -110,10 +104,16 @@ public class GuideViewFragment extends CommonDialog {
                 currentBundle = guideViewBundles.remove(0);
             }
         } while (currentBundle != null && !currentBundle.condition());
+
         if (currentBundle == null) {
             hide();
             return;
         }
+        //initialise the GuideView instance and set listeners
+        initGuideView();
+    }
+
+    private void initGuideView() {
         if (null != currentGuideView) {
             GuideView guideView = new GuideView((currentGuideView.getContext()), currentBundle);
             wrapClickListener(guideView);
@@ -125,6 +125,21 @@ public class GuideViewFragment extends CommonDialog {
             flContainer.addComponent(guideView);
             guideView.show();
             currentGuideView = guideView;
+        }
+    }
+
+    private void removeCurrentGuideView() {
+        if (currentGuideView != null && currentGuideView.isShowing) {
+            // set the container background as the mask color,when the next guideView show,it will reset to transparent
+            // in order to keep reduce the blinking in the interval
+            ShapeElement shapeElement = new ShapeElement();
+            if (currentBundle == null) {
+                shapeElement.setRgbColor(new RgbColor(Color.TRANSPARENT.getValue()));
+            } else {
+                shapeElement.setRgbColor(RgbColor.fromArgbInt(currentBundle.getMaskColor()));
+            }
+            flContainer.setBackground(shapeElement);
+            currentGuideView.hide();
         }
     }
 

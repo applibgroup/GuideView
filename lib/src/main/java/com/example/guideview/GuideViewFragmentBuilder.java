@@ -13,8 +13,10 @@ public class GuideViewFragmentBuilder {
     private boolean cancelable;
 
     /**
-     * @param bundle
-     * @return
+     * Adds GuideViewBundle to the list.
+     *
+     * @param bundle GuideViewBundle object
+     * @return GuideViewFragmentBuilder object
      */
     public GuideViewFragmentBuilder addGuideViewBundle(GuideViewBundle bundle) {
         if (bundle == null) {
@@ -29,6 +31,12 @@ public class GuideViewFragmentBuilder {
         return this;
     }
 
+    /**
+     * Builds the GuideViewFragment object.
+     *
+     * @param context
+     * @return GuideViewFragment object
+     */
     public GuideViewFragment build(Context context) {
         GuideViewFragment fragment = new GuideViewFragment(context);
         fragment.setGuideViewBundles(guideViewBundles);
