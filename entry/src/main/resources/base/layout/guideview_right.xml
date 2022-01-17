@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:width="180vp"
+    ohos:height="match_content"
+    ohos:background_element="$graphic:shape_rect"
+    ohos:orientation="vertical"
+    ohos:top_padding="15vp">
+
+    <Text
+        ohos:left_padding="15vp"
+        ohos:right_padding="15vp"
+        ohos:width="match_parent"
+        ohos:height="match_content"
+        ohos:layout_alignment="center"
+        ohos:additional_line_spacing="5vp"
+        ohos:text="GuideView Display ON RIGHT"
+        ohos:text_color="#000"
+        ohos:text_size="18vp" />
+
+    <Component
+        ohos:width="match_parent"
+        ohos:height="0.5vp"
+        ohos:top_margin="15vp"
+        ohos:background_element="$graphic:divider" />
+
+    <Text
+        ohos:id="$+id:tvRighttNext"
+        ohos:bottom_padding="15vp"
+        ohos:top_padding="15vp"
+        ohos:width="match_parent"
+        ohos:height="match_content"
+        ohos:layout_alignment="center"
+        ohos:text="next step"
+        ohos:text_color="#f00"
+        ohos:text_size="16vp" />
+
+</DirectionalLayout>

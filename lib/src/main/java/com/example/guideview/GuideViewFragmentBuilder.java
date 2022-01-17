@@ -12,6 +12,14 @@ public class GuideViewFragmentBuilder {
     private List<GuideViewBundle> guideViewBundles = new ArrayList<>();
     private boolean cancelable;
 
+    private GuideViewFragmentBuilder() {
+
+    }
+
+    public static GuideViewFragmentBuilder newInstance() {
+        return new GuideViewFragmentBuilder();
+    }
+
     /**
      * Adds GuideViewBundle to the list.
      *

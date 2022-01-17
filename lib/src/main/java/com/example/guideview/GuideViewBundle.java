@@ -1,6 +1,7 @@
 package com.example.guideview;
 
 import ohos.agp.components.Component;
+import ohos.agp.components.DependentLayout;
 import ohos.agp.components.StackLayout;
 import org.jetbrains.annotations.NotNull;
 
@@ -94,7 +95,7 @@ public class GuideViewBundle {
         return config.hintViewMarginBottom;
     }
 
-    public StackLayout.LayoutConfig getHintViewParams() {
+    public DependentLayout.LayoutConfig getHintViewParams() {
         return config.hintViewParams;
     }
 
@@ -154,7 +155,7 @@ public class GuideViewBundle {
         private int hintViewMarginTop;
         private int hintViewMarginBottom;
         // default,the hint view is align the targetView based on the Direction
-        private StackLayout.LayoutConfig hintViewParams;
+        private DependentLayout.LayoutConfig hintViewParams;
         private boolean hasTransparentLayer = true;
         // whether click the whole screen can dismissed the guideView.
         // If false,you need to handle the click and dismiss event yourself
@@ -212,7 +213,7 @@ public class GuideViewBundle {
             return this;
         }
 
-        public Builder setHintViewParams(StackLayout.LayoutConfig hintViewParams) {
+        public Builder setHintViewParams(DependentLayout.LayoutConfig hintViewParams) {
             this.hintViewParams = hintViewParams;
             return this;
         }

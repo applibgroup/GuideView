@@ -172,8 +172,8 @@ final class GuideView extends DependentLayout implements Component.DrawTask, Com
 
         }
         setGravity(LayoutAlignment.TOP | LayoutAlignment.START);
-        StackLayout.LayoutConfig config = bundle.getHintViewParams() == null
-                ? new StackLayout.LayoutConfig(ComponentContainer.LayoutConfig.MATCH_CONTENT,
+        DependentLayout.LayoutConfig config = bundle.getHintViewParams() == null
+                ? new DependentLayout.LayoutConfig(ComponentContainer.LayoutConfig.MATCH_CONTENT,
                 ComponentContainer.LayoutConfig.MATCH_CONTENT) : bundle.getHintViewParams();
         config.setMargins(left, top, right, bottom);
 

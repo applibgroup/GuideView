@@ -22,7 +22,6 @@ import java.util.List;
  */
 
 public class GuideViewFragment extends CommonDialog {
-    private Context context;
     private List<GuideViewBundle> guideViewBundles = new ArrayList<>();
     private StackLayout flContainer;
     private GuideViewBundle currentBundle;
@@ -37,8 +36,7 @@ public class GuideViewFragment extends CommonDialog {
      */
     public GuideViewFragment(Context cxt) {
         super(cxt);
-        context = cxt;
-        layout = LayoutScatter.getInstance(context)
+        layout = LayoutScatter.getInstance(cxt)
                 .parse(ResourceTable.Layout_layout_guide_container, null, false);
 
     }
@@ -52,8 +50,8 @@ public class GuideViewFragment extends CommonDialog {
         if (window == null) {
             return;
         }
-        window.setWindowLayout(ComponentContainer.LayoutConfig.MATCH_PARENT,
-                ComponentContainer.LayoutConfig.MATCH_PARENT);
+        window.setWindowLayout(ComponentContainer.LayoutConfig.MATCH_CONTENT,
+                ComponentContainer.LayoutConfig.MATCH_CONTENT);
         window.setBackgroundColor(new RgbColor(Color.TRANSPARENT.getValue()));
         if (!isShowing) {
             isShowing = true;
