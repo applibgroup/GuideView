@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DependentLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="100vp"
+    ohos:width="100vp"
+    ohos:alignment="center"
+    ohos:background_element="#ffff00"
+    ohos:orientation="vertical">
+
+    <Text
+        ohos:id="$+id:tvShow"
+        ohos:width="match_content"
+        ohos:height="match_content"
+        ohos:margin="10vp"
+        ohos:background_element="#cecece"
+        ohos:padding="5vp"
+        ohos:text="show guide" />
+
+    <Text
+        ohos:id="$+id:tvContent"
+        ohos:width="match_content"
+        ohos:height="match_content"
+        ohos:background_element="#00ffff"
+        ohos:text="TargetView">
+
+    </Text>
+</DependentLayout>
